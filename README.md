@@ -1,4 +1,4 @@
-#Task description:
+# Task description:
 
 Consider this description as a business task description in issue tracking system (e.g. Jira).
 All the analysis was done by system analysts and following description was created.
@@ -21,7 +21,7 @@ Preferred invocation of the functionality but may be changed if needed:
 PremiumCalculator#calculate(Policy policy);
 
 
-###Needed functionality:
+### Needed functionality:
 Please create functionality that calculates policy premium
 
 In this iteration client stated that only risk types FIRE and THEFT will be calculated, however it may be
@@ -40,7 +40,7 @@ COEFFICIENT_THEFT - by default 0.11 but if SUM_INSURED_THEFT equal or greater th
 15 then 0.05
 ```
 
-###Acceptance criteria:
+### Acceptance criteria:
 If there is one policy, one object and two sub-objects as described below, then calculator should return
 premium = `2.28` EUR\
 Risk type = `FIRE`, Sum insured = `100.00`\
@@ -51,8 +51,8 @@ described below, then calculator should return premium = `17.13` EUR\
 Risk type = `FIRE`, Sum insured = `500.00`\
 Risk type = `THEFT`, Sum insured = `102.51`
 
-###Object entities:
-####Policy:
+### Object entities:
+##### Policy:
 
 Policy can have multiple policy objects and each policy object can have multiple sub-objects.
 
@@ -64,7 +64,7 @@ Policy has 3 attributes:
 | Policy status  | e.g. REGISTERED, APPROVED  |
 | Policy status  | Collection of one or multiple objects  |
 
-####Policy object:
+##### Policy object:
 
 Policy objects can have multiple sub-objects and can be related only to one policy
 
@@ -75,7 +75,7 @@ Policy objects have 2 attributes:
 | Object name    | e.g. A House  |
 | Sub-objects    | Collection of none or multiple sub-objects  |
 
-####Policy sub-object:
+##### Policy sub-object:
 
 Policy has 3 attributes:
 
