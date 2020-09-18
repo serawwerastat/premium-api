@@ -2,7 +2,6 @@ package lv.afilatov.premiumapi.domain.enums;
 
 import java.math.BigDecimal;
 
-//@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum RiskType {
     FIRE(0.014, new BigDecimal(100), false, 0.024),
     THEFT(0.11, new BigDecimal(15), true, 0.05);
