@@ -1,49 +1,28 @@
 package lv.afilatov.premiumapi.domain.enums;
 
-import java.math.BigDecimal;
+import static lv.afilatov.premiumapi.domain.model.risk_type.RiskTypeThreshold.createExclusiveThreshold;
+import static lv.afilatov.premiumapi.domain.model.risk_type.RiskTypeThreshold.createInclusiveThreshold;
+
+import lv.afilatov.premiumapi.domain.interfaces.CalculatableRiskType;
+import lv.afilatov.premiumapi.domain.model.risk_type.DoubleThresholdRiskType;
+import lv.afilatov.premiumapi.domain.model.risk_type.SampleRiskType;
+import lv.afilatov.premiumapi.domain.model.risk_type.SingleThresholdRiskType;
 
 public enum RiskType {
-    FIRE(0.014, new BigDecimal(100), false, 0.024),
-    THEFT(0.11, new BigDecimal(15), true, 0.05);
+    FIRE(new SingleThresholdRiskType(0.014, createExclusiveThreshold(100, 0.024))),
+    THEFT(new SingleThresholdRiskType(0.11, createInclusiveThreshold(15, 0.05))),
+    FLOOD(new DoubleThresholdRiskType(0.05, createInclusiveThreshold(50, 0.1),
+            createExclusiveThreshold(100, 0.2))),
+    ALIENS(new SampleRiskType("anyValue", "anyValue", "anyValue"));
 
-    private final double coefficient;
-    private final boolean isThresholdInclusive;
-    private final BigDecimal sumThreshold;
-    private final double thresholdCoefficient;
+    private final CalculatableRiskType calculatableRiskType;
 
-    RiskType(double coefficient, BigDecimal sumThreshold, boolean isThresholdInclusive, double thresholdCoefficient) {
-        this.coefficient = coefficient;
-        this.sumThreshold = sumThreshold;
-        this.isThresholdInclusive = isThresholdInclusive;
-        this.thresholdCoefficient = thresholdCoefficient;
+    RiskType(CalculatableRiskType calculatableRiskType) {
+        this.calculatableRiskType = calculatableRiskType;
     }
 
-    public double getCoefficientBasedOn(BigDecimal insuredSum) {
-        if (isBiggerOrEqualThenThreshold(insuredSum)) {
-            return thresholdCoefficient;
-        }
-        return coefficient;
-    }
-
-    private boolean isBiggerOrEqualThenThreshold(BigDecimal insuredSum) {
-        var compareResult = insuredSum.compareTo(sumThreshold);
-        return isThresholdInclusive ? compareResult >= 0 : compareResult > 0;
-    }
-
-    public double getCoefficient() {
-        return coefficient;
-    }
-
-    public boolean isThresholdInclusive() {
-        return isThresholdInclusive;
-    }
-
-    public BigDecimal getSumThreshold() {
-        return sumThreshold;
-    }
-
-    public double getThresholdCoefficient() {
-        return thresholdCoefficient;
+    public CalculatableRiskType getCalculatableRiskType() {
+        return calculatableRiskType;
     }
 
     @Override public String toString() {
