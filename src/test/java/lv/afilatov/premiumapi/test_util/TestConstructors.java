@@ -1,6 +1,7 @@
 package lv.afilatov.premiumapi.test_util;
 
 import static lv.afilatov.premiumapi.domain.enums.RiskType.FIRE;
+import static lv.afilatov.premiumapi.domain.model.risk_type.RiskTypeThreshold.createExclusiveThreshold;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,7 @@ import lv.afilatov.premiumapi.domain.enums.RiskType;
 import lv.afilatov.premiumapi.domain.model.Policy;
 import lv.afilatov.premiumapi.domain.model.PolicyObject;
 import lv.afilatov.premiumapi.domain.model.PolicySubObject;
+import lv.afilatov.premiumapi.domain.model.risk_type.RiskTypeThreshold;
 
 public class TestConstructors {
 
@@ -49,5 +51,10 @@ public class TestConstructors {
                 .setName(RandomStringUtils.randomAlphanumeric(3))
                 .setInsuredSum(insuredSum)
                 .setRiskType(riskType);
+    }
+
+    public static RiskTypeThreshold createRiskTypeThreshold(int sumThreshold) {
+        var thresholdCoefficient = RandomUtils.nextDouble(0.01, 1);
+        return createExclusiveThreshold(sumThreshold, thresholdCoefficient);
     }
 }

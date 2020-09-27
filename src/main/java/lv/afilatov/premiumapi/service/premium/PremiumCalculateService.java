@@ -39,7 +39,6 @@ public class PremiumCalculateService {
     private BigDecimal calculatePremium(Map.Entry<RiskType, BigDecimal> riskTypeInsuredSumEntry) {
         var riskType = riskTypeInsuredSumEntry.getKey();
         var insuredSum = riskTypeInsuredSumEntry.getValue();
-        var coefficient = riskType.getCoefficientBasedOn(insuredSum);
-        return insuredSum.multiply(new BigDecimal(coefficient));
+        return riskType.getCalculatableRiskType().calculate(insuredSum);
     }
 }

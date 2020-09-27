@@ -105,8 +105,7 @@ public class PremiumCalculateServiceTest {
             return ZERO_PREMIUM;
         }
         var insuredSum = insuredSumMappedByRiskType.get(riskType);
-        var coefficient = riskType.getCoefficientBasedOn(insuredSum);
-        return insuredSum.multiply(new BigDecimal(coefficient));
+        return riskType.getCalculatableRiskType().calculate(insuredSum);
     }
 
 }
